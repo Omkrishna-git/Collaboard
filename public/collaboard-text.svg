@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 60">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b0bce3" />
+      <stop offset="50%" stop-color="#465f9f" />
+      <stop offset="100%" stop-color="#1e3a8a" />
+    </linearGradient>
+  </defs>
+  <style>
+    text {
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+    }
+    .tagline {
+      font-weight: normal;
+      font-size: 14px;
+    }
+  </style>
+  <text x="10" y="35" font-size="30" fill="url(#gradient)">Collaboard</text>
+  <text x="10" y="50" class="tagline" fill="#1d1d1b">Great minds think together</text>
+</svg>

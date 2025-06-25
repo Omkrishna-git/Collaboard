@@ -15,11 +15,14 @@ const font = Poppins({
 });
 
 export const OrgSidebar = () => {
+
     const searchParams = useSearchParams();
     const favorite = searchParams.get("favorites");
+    
     return (
         <div className="hidden lg:flex flex-col space-y-6 w-[206px] pl-5 pt-5 mr-5">
             <Link href="/">
+                {/* logo & branding  */}
                 <div className="flex items-center gap-x-3">
                     <Image src="/collaboard-logo.svg" alt="Logo" height={30} width={30} />
                     <span
@@ -29,6 +32,8 @@ export const OrgSidebar = () => {
                     </span>
                 </div>
             </Link>
+
+            {/* Organization Switcher button  */}
             <OrganizationSwitcher
                 hidePersonal
                 appearance={{
@@ -52,6 +57,8 @@ export const OrgSidebar = () => {
             />
 
             <div className="space-y-1 w-full">
+
+                {/* Team Boards  */}
                 <Button
                     variant={favorite ? "ghost" : "secondary"}
                     asChild
@@ -63,6 +70,8 @@ export const OrgSidebar = () => {
                         Team Boards
                     </Link>
                 </Button>
+
+                {/* fovourite Board  */}
                 <Button
                     variant={!favorite ? "ghost" : "secondary"}
                     asChild
@@ -84,4 +93,4 @@ export const OrgSidebar = () => {
             </div>
         </div>
     );
-};
+}; 

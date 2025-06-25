@@ -20,8 +20,8 @@ export const OrgSidebar = () => {
     return (
         <div className="hidden lg:flex flex-col space-y-6 w-[206px] pl-5 pt-5 mr-5">
             <Link href="/">
-                <div className="flex items-center gap-x-2">
-                    <Image src="/collaboard-logo.svg" alt="Logo" height={35} width={30} />
+                <div className="flex items-center gap-x-3">
+                    <Image src="/collaboard-logo.svg" alt="Logo" height={30} width={30} />
                     <span
                         className={cn("font-semibold text-2xl", font.className)}
                     >

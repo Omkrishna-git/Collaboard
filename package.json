@@ -19,9 +19,11 @@
     "convex": "^1.25.0",
     "lucide-react": "^0.523.0",
     "next": "^14.2.25",
+    "query-string": "^9.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

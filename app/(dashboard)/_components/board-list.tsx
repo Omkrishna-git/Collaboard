@@ -4,7 +4,7 @@ import { useQuery } from "convex/react";
 import { EmptyBoards } from "./empty-boards";
 import { EmptyFavorites } from "./empty-favorites";
 import { EmptySearch } from "./empty-search";
-// import { api } from "@/convex/_generated/api";
+import { api } from "@/convex/_generated/api";
 // import { BoardCard } from "./board-card";
 // import { NewBoardButton } from "./new-board-button";
 import { useParams, useSearchParams } from "next/navigation";

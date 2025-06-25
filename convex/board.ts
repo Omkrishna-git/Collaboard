@@ -18,6 +18,7 @@ export const create = mutation({
         orgId: v.string(),
         title: v.string(),
     },
+
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
         if (!identity) {
@@ -37,6 +38,7 @@ export const create = mutation({
     },
 });
 
+// used to delete board
 export const remove = mutation({
     args: {
         id: v.id("boards"),
@@ -65,6 +67,8 @@ export const remove = mutation({
     },
 });
 
+// rename the board from untitle basically use to change name of board in the actions.tsx
+// Todo :- Only admin can delete
 export const update = mutation({
     args: {
         id: v.id("boards"),

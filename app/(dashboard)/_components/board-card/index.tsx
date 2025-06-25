@@ -7,7 +7,7 @@ import { Overlay } from "./overlay";
 import { useAuth } from "@clerk/nextjs";
 import { Footer } from "./footer";
 import { Skeleton } from "@/components/ui/skeleton";
-// import { Actions } from "@/components/actions";
+import { Actions } from "@/components/actions";
 import { MoreHorizontal } from "lucide-react";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { api } from "@/convex/_generated/api";
@@ -61,16 +61,21 @@ export const BoardCard = ({
 
     return (
         <Link href={`/board/${id}`}>
+
             <div className="group aspect-[100/127] border rounded-lg flex flex-col justify-center overflow-hidden">
+            
                 <div className="relative flex-1 bg-amber-50">
+
                     <Image
                         src={imageUrl}
                         alt={title}
                         fill
                         className="object-fit"
                     />
+
                     <Overlay />
-                    {/* <Actions
+
+                    <Actions
                         id={id}
                         title={title}
                         side="bottom"
@@ -86,8 +91,9 @@ export const BoardCard = ({
                                 size={24}
                             />
                         </button>
-                    </Actions> */}
+                    </Actions>
                 </div>
+
                 <Footer
                     isFavorite={isFavorite}
                     title={title}
@@ -96,6 +102,7 @@ export const BoardCard = ({
                     onClick={toggleFavorite}
                     disabled={pendingFavorite || pendingUnFavorite}
                 />
+
             </div>
         </Link>
     );

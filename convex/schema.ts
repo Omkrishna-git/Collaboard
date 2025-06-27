@@ -15,6 +15,7 @@ export default defineSchema({
             filterFields: ["orgId"],
         }),
 
+    // making faviorite board or unfavorite
     userFavorites: defineTable({
         orgId: v.string(),
         userId: v.string(),

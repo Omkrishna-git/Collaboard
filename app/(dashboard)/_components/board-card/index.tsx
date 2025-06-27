@@ -39,11 +39,17 @@ export const BoardCard = ({
     const authorLabel = authorId === userId ? "You" : authorName;
     const createdAtLabel = formatDistanceToNow(createdAt, { addSuffix: true });
 
-    const { mutate: onFavorite, pending: pendingFavorite } = useApiMutation(
+    const { 
+        mutate: onFavorite,
+        pending: pendingFavorite 
+    } = useApiMutation(
         api.board.favorite
     );
 
-    const { mutate: onUnFavorite, pending: pendingUnFavorite } = useApiMutation(
+    const { 
+        mutate: onUnFavorite,
+        pending: pendingUnFavorite 
+    } = useApiMutation(
         api.board.unfavorite
     );
 

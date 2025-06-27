@@ -90,6 +90,7 @@ export const update = mutation({
     },
 });
 
+// making board favourite according to id
 export const favorite = mutation({
     args: {
         id: v.id("boards"),
@@ -111,11 +112,15 @@ export const favorite = mutation({
         const existingFavorite = await ctx.db
             .query("userFavorites")
             .withIndex("by_user_board", (q) =>
-                q.eq("userId", userId).eq("boardId", board._id)
+                q
+                .eq("userId", userId)
+                .eq("boardId", board._id)
+                // .eq("orgId",args.orgId) 
             )
             .unique();
 
         if (existingFavorite) throw new Error("Board already favorited");
+
         await ctx.db.insert("userFavorites", {
             userId,
             boardId: board._id,
@@ -126,6 +131,7 @@ export const favorite = mutation({
     },
 });
 
+// unfavourite the board
 export const unfavorite = mutation({
     args: {
         id: v.id("boards"),
@@ -146,7 +152,10 @@ export const unfavorite = mutation({
         const existingFavorite = await ctx.db
             .query("userFavorites")
             .withIndex("by_user_board", (q) =>
-                q.eq("userId", userId).eq("boardId", board._id)
+                q
+                .eq("userId", userId)
+                .eq("boardId", board._id)
+                // check if orgId needed
             )
             .unique();
 

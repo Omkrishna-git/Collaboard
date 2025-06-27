@@ -56,11 +56,16 @@ export const get = query({
             return ctx.db
                 .query("userFavorites")
                 .withIndex("by_user_board", (q) =>
-                    q.eq("userId", identity.subject).eq("boardId", board._id)
+                    q
+                    .eq("userId", identity.subject)
+                    .eq("boardId", board._id)
                 )
                 .unique()
                 .then((favorite) => {
-                    return { ...board, isFavorite: !!favorite };
+                    return { 
+                        ...board,
+                        isFavorite: !!favorite 
+                    };
                 });
         });
 

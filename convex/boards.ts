@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-// import { getAllOrThrow } from "convex-helpers/server/relationships";
+import { getAllOrThrow } from "convex-helpers/server/relationships";
 import { query } from "./_generated/server";
 
 export const get = query({
@@ -18,19 +18,21 @@ export const get = query({
             const favoriteBoards = await ctx.db
                 .query("userFavorites")
                 .withIndex("by_user_org", (q) =>
-                    q.eq("userId", identity.subject).eq("orgId", args.orgId)
+                    q
+                        .eq("userId", identity.subject)
+                        .eq("orgId", args.orgId)
                 )
                 .order("desc")
                 .collect();
 
             const ids = favoriteBoards.map((b) => b.boardId);
 
-            // const boards = await getAllOrThrow(ctx.db, ids);
+            const boards = await getAllOrThrow(ctx.db, ids);
 
-            // return boards.map((board) => ({
-            //     ...board,
-            //     isFavorite: true,
-            // }));
+            return boards.map((board) => ({
+                ...board,
+                isFavorite: true,
+            }));
         }
 
         const title = args.search as string;
@@ -56,16 +58,11 @@ export const get = query({
             return ctx.db
                 .query("userFavorites")
                 .withIndex("by_user_board", (q) =>
-                    q
-                    .eq("userId", identity.subject)
-                    .eq("boardId", board._id)
+                    q.eq("userId", identity.subject).eq("boardId", board._id)
                 )
                 .unique()
                 .then((favorite) => {
-                    return { 
-                        ...board,
-                        isFavorite: !!favorite 
-                    };
+                    return { ...board, isFavorite: !!favorite };
                 });
         });
 

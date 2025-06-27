@@ -18,7 +18,6 @@ export const create = mutation({
         orgId: v.string(),
         title: v.string(),
     },
-
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
         if (!identity) {
@@ -38,7 +37,6 @@ export const create = mutation({
     },
 });
 
-// used to delete board
 export const remove = mutation({
     args: {
         id: v.id("boards"),
@@ -67,8 +65,6 @@ export const remove = mutation({
     },
 });
 
-// rename the board from untitle basically use to change name of board in the actions.tsx
-// Todo :- Only admin can delete
 export const update = mutation({
     args: {
         id: v.id("boards"),
@@ -90,7 +86,6 @@ export const update = mutation({
     },
 });
 
-// making board favourite according to id
 export const favorite = mutation({
     args: {
         id: v.id("boards"),
@@ -112,15 +107,11 @@ export const favorite = mutation({
         const existingFavorite = await ctx.db
             .query("userFavorites")
             .withIndex("by_user_board", (q) =>
-                q
-                .eq("userId", userId)
-                .eq("boardId", board._id)
-                // .eq("orgId",args.orgId) 
+                q.eq("userId", userId).eq("boardId", board._id)
             )
             .unique();
 
         if (existingFavorite) throw new Error("Board already favorited");
-
         await ctx.db.insert("userFavorites", {
             userId,
             boardId: board._id,
@@ -131,7 +122,6 @@ export const favorite = mutation({
     },
 });
 
-// unfavourite the board
 export const unfavorite = mutation({
     args: {
         id: v.id("boards"),
@@ -152,10 +142,7 @@ export const unfavorite = mutation({
         const existingFavorite = await ctx.db
             .query("userFavorites")
             .withIndex("by_user_board", (q) =>
-                q
-                .eq("userId", userId)
-                .eq("boardId", board._id)
-                // check if orgId needed
+                q.eq("userId", userId).eq("boardId", board._id)
             )
             .unique();
 

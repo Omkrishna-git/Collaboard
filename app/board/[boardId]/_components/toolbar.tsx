@@ -1,4 +1,3 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import { ToolButton } from "./tool-button";
 import {
     Circle,
@@ -10,9 +9,10 @@ import {
     TypeIcon,
     Undo2,
 } from "lucide-react";
-// import { CanvasMode, CanvasState, LayerType } from "@/types/canvas";
+import { CanvasMode, CanvasState, LayerType } from "@/types/canvas";
 import { useEffect } from "react";
-import { useSelf} from "@liveblocks/react/suspense";
+export { useSelf } from "@liveblocks/react/suspense";
+
 
 interface ToolbarProps {
     canvasState: CanvasState;
@@ -31,64 +31,67 @@ const Toolbar = ({
     canUndo,
     canRedo,
 }: ToolbarProps) => {
-    // const selection = useSelf((me) => me.presence.selection);
 
-    // useEffect(() => {
-    //     const onKeyDown = (e: KeyboardEvent) => {
-    //         if (selection?.length > 0) return;
-    //         switch (e.key) {
-    //             case "a":
-    //                 if (e.ctrlKey) setCanvasState({ mode: CanvasMode.None });
-    //                 break;
+    const selection = useSelf((me) => me.presence.info);
 
-    //             case "t":
-    //                 if (e.ctrlKey)
-    //                     setCanvasState({
-    //                         layerType: LayerType.Text,
-    //                         mode: CanvasMode.Inserting,
-    //                     });
-    //                 break;
+    useEffect(() => {
+        const onKeyDown = (e: KeyboardEvent) => {
+            // if (selection?.length > 0) return;
+            switch (e.key) {
+                case "a":
+                    if (e.ctrlKey) setCanvasState({ mode: CanvasMode.None });
+                    break;
 
-    //             case "n":
-    //                 if (e.ctrlKey)
-    //                     setCanvasState({
-    //                         mode: CanvasMode.Inserting,
-    //                         layerType: LayerType.Note,
-    //                     });
-    //                 break;
+                case "t":
+                    if (e.ctrlKey)
+                        setCanvasState({
+                            layerType: LayerType.Text,
+                            mode: CanvasMode.Inserting,
+                        });
+                    break;
 
-    //             case "r":
-    //                 if (e.ctrlKey)
-    //                     setCanvasState({
-    //                         mode: CanvasMode.Inserting,
-    //                         layerType: LayerType.Rectangle,
-    //                     });
-    //                 break;
+                case "n":
+                    if (e.ctrlKey)
+                        setCanvasState({
+                            mode: CanvasMode.Inserting,
+                            layerType: LayerType.Note,
+                        });
+                    break;
 
-    //             case "e":
-    //                 if (e.ctrlKey)
-    //                     setCanvasState({
-    //                         mode: CanvasMode.Inserting,
-    //                         layerType: LayerType.Ellipse,
-    //                     });
-    //                 break;
+                case "r":
+                    if (e.ctrlKey)
+                        setCanvasState({
+                            mode: CanvasMode.Inserting,
+                            layerType: LayerType.Rectangle,
+                        });
+                    break;
 
-    //             default:
-    //                 break;
-    //         }
-    //     };
+                case "e":
+                    if (e.ctrlKey)
+                        setCanvasState({
+                            mode: CanvasMode.Inserting,
+                            layerType: LayerType.Ellipse,
+                        });
+                    break;
 
-    //     document.addEventListener("keydown", onKeyDown);
+                default:
+                    break;
+            }
+        };
 
-    //     return () => {
-    //         document.removeEventListener("keydown", onKeyDown);
-    //     };
-    // }, [selection, setCanvasState]);
+        document.addEventListener("keydown", onKeyDown);
+
+        return () => {
+            document.removeEventListener("keydown", onKeyDown);
+        };
+    }, 
+        [selection, setCanvasState]
+    );
 
     return (
         <div className="absolute top-[50%] -translate-y-[50%] left-2 flex flex-col gap-y-4">
             <div className="bg-white rounded-md p-1.5 flex gap-1 flex-col items-center shadow-md">
-                {/* <ToolButton
+                <ToolButton
                     label="Select (Ctrl+A)"
                     icon={MousePointer2}
                     onClick={() => setCanvasState({ mode: CanvasMode.None })}
@@ -99,9 +102,9 @@ const Toolbar = ({
                         canvasState.mode === CanvasMode.Pressing ||
                         canvasState.mode === CanvasMode.Resizing
                     }
-                /> */}
+                />
 
-                {/* <ToolButton
+                <ToolButton
                     label="Text (Ctrl+T)"
                     icon={TypeIcon}
                     onClick={() =>
@@ -114,9 +117,9 @@ const Toolbar = ({
                         canvasState.mode === CanvasMode.Inserting &&
                         canvasState.layerType === LayerType.Text
                     }
-                /> */}
+                />
 
-                {/* <ToolButton
+                <ToolButton
                     label="Sticky Note (Ctrl+N)"
                     icon={StickyNote}
                     onClick={() =>
@@ -130,8 +133,8 @@ const Toolbar = ({
                         canvasState.layerType === LayerType.Note
                     }
                 />
-                 */}
-                {/* <ToolButton
+                
+                <ToolButton
                     label="Rectangle (Ctrl+R)"
                     icon={Square}
                     onClick={() =>
@@ -144,9 +147,9 @@ const Toolbar = ({
                         canvasState.mode === CanvasMode.Inserting &&
                         canvasState.layerType === LayerType.Rectangle
                     }
-                /> */}
+                />
 
-                {/* <ToolButton
+                <ToolButton
                     label="Ellipse (Ctrl+E)"
                     icon={Circle}
                     onClick={() =>
@@ -159,9 +162,9 @@ const Toolbar = ({
                         canvasState.mode === CanvasMode.Inserting &&
                         canvasState.layerType === LayerType.Ellipse
                     }
-                /> */}
+                />
 
-                {/* <ToolButton
+                <ToolButton
                     label="Pen"
                     icon={Pencil}
                     onClick={() =>
@@ -170,31 +173,25 @@ const Toolbar = ({
                         })
                     }
                     isActive={canvasState.mode === CanvasMode.Pencil}
-                /> */}
+                />
 
             </div>
 
             <div className="bg-white rounded-md p-1.5 flex flex-col items-center shadow-md">
-                <div>
-                    undo 
-                </div>
-                {/* <ToolButton  
+             
+                <ToolButton  
                     label="Undo (Ctrl+Z)"
                     icon={Undo2}
                     onClick={undo}
                     isDisabled={!canUndo}
-                /> */}
+                />
 
-                <div>
-                    redo
-                </div>
-
-                {/* <ToolButton
+                <ToolButton
                     label="Redo (Ctrl+Shift+Z)"
                     icon={Redo2}
                     onClick={redo}
                     isDisabled={!canRedo}
-                /> */}
+                />
             </div>
         </div>
     );
@@ -206,3 +203,7 @@ export function ToolbarSkeleton() {
   );
 }
 export default Toolbar;
+
+function useSelf(arg0: (me: any) => any) {
+    
+}

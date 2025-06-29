@@ -11,26 +11,26 @@ import React, {
     useRef,
 } from "react";
 import { nanoid } from "nanoid";
-// import {
-//     CanvasState,
-//     CanvasMode,
-//     Camera,
-//     Color,
-//     LayerType,
-//     Point,
-//     Side,
-//     XYWH,
-//     Layer,
-// } from "@/types/canvas";
-// import {
-//     useHistory,
-//     useCanUndo,
-//     useCanRedo,
-//     useMutation,
-//     useStorage,
-//     useOthersMapped,
-//     useSelf,
-// } from "@/liveblocks.config";
+import {
+    CanvasState,
+    CanvasMode,
+    Camera,
+    Color,
+    LayerType,
+    Point,
+    Side,
+    XYWH,
+    Layer,
+} from "@/types/canvas";
+import {
+    useHistory,
+    useCanUndo,
+    useCanRedo,
+    useMutation,
+    useStorage,
+    useOthersMapped,
+    useSelf,
+} from "@liveblocks/react/suspense";
 
 export { useSelf } from "@liveblocks/react/suspense";
 
@@ -47,7 +47,7 @@ export { useSelf } from "@liveblocks/react/suspense";
 //     pointerEventToCanvasPoint,
 //     resizeBounds,
 //   } from "@/lib/utils";
-// import { LiveObject } from "@liveblocks/client";
+import { LiveObject } from "@liveblocks/client";
 // import { LayerPreview } from "./layer-preview";
 // import { SelectionBox } from "./selection-box";
 // import { SelectionTools } from "./selection-tools";
@@ -73,9 +73,9 @@ export const Canvas = ({ boardId }: CanvasProps) => {
 
     // const pencilDraft = useSelf((me) => me.presence.pencilDraft);
 
-    // const [canvasState, setCanvasState] = useState<CanvasState>({
-        // mode: CanvasMode.None,
-    // });
+    const [canvasState, setCanvasState] = useState<CanvasState>({
+        mode: CanvasMode.None,
+    });
 
     // const [camera, setCamera] = useState<Camera>({ x: 0, y: 0 });
 
@@ -90,9 +90,9 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     // });
 
     // useDisableScrollBounce();
-    // const history = useHistory();
-    // const canUndo = useCanUndo();
-    // const canRedo = useCanRedo();
+    const history = useHistory();
+    const canUndo = useCanUndo();
+    const canRedo = useCanRedo();
 
     // const insertLayer = useMutation(
     //     (
@@ -564,14 +564,14 @@ export const Canvas = ({ boardId }: CanvasProps) => {
 
             <Participants />
             
-           {/* <Toolbar
+           <Toolbar
                 canvasState={canvasState}
                 setCanvasState={setCanvasState}
                 canUndo={canUndo}
                 canRedo={canRedo}
                 undo={history.undo}
                 redo={history.redo}
-            /> */}
+            />
         {/* 
             {camera.x != 0 && camera.y != 0 && (
                 <ResetCamera resetCamera={resetCamera} />

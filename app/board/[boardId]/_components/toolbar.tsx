@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-// import { ToolButton } from "./tool-button";
+import { ToolButton } from "./tool-button";
 import {
     Circle,
     MousePointer2,
@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 // import { CanvasMode, CanvasState, LayerType } from "@/types/canvas";
 import { useEffect } from "react";
-// import { useSelf } from "@/liveblocks.config";
+import { useSelf} from "@liveblocks/react/suspense";
 
 interface ToolbarProps {
     canvasState: CanvasState;
@@ -24,12 +24,12 @@ interface ToolbarProps {
 }
 
 const Toolbar = ({
-    // canvasState,
-    // setCanvasState,
-    // undo,
-    // redo,
-    // canUndo,
-    // canRedo,
+    canvasState,
+    setCanvasState,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
 }: ToolbarProps) => {
     // const selection = useSelf((me) => me.presence.selection);
 
@@ -100,6 +100,7 @@ const Toolbar = ({
                         canvasState.mode === CanvasMode.Resizing
                     }
                 /> */}
+
                 {/* <ToolButton
                     label="Text (Ctrl+T)"
                     icon={TypeIcon}

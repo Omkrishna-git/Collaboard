@@ -3,7 +3,6 @@
 import { Actions } from "@/components/actions";
 import { Hint } from "@/components/hint";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";

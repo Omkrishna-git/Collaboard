@@ -31,6 +31,13 @@ import { nanoid } from "nanoid";
 //     useOthersMapped,
 //     useSelf,
 // } from "@/liveblocks.config";
+
+export { useSelf } from "@liveblocks/react/suspense";
+
+// function Component() {
+//   const { name, picture } = useSelf((me) => me.info);
+// }
+
 // import { CursorsPresence } from "./cursors-presence";
 // import {
 //     colorToCss,

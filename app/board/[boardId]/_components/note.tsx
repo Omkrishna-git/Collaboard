@@ -1,5 +1,5 @@
 import { Kalam } from "next/font/google";
-// import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 import { cn, colorToCss, getContrastingTextColor } from "@/lib/utils";
 import { NoteLayer } from "@/types/canvas";
@@ -19,7 +19,7 @@ interface NoteProps {
 
 const calculateFontSize = (width: number, height: number) => {
     const maxFontSize = 96;
-    const scaleFactor = 0.15;
+    const scaleFactor = 0.3;
     const fontSizeBasedOnHeight = height * scaleFactor;
     const fontSizeBasedOnWidth = width * scaleFactor;
 
@@ -40,9 +40,9 @@ export const Note = ({
         liveLayers.get(id)?.set("value", newValue);
     }, []);
 
-    // const handleContentChange = (e: ContentEditableEvent) => {
-    //     updateValue(e.target.value);
-    // };
+    const handleContentChange = (e: ContentEditableEvent) => {
+        updateValue(e.target.value);
+    };
 
     return (
         <foreignObject
@@ -59,7 +59,7 @@ export const Note = ({
             }}
             className="shadow-md drop-shadow-xl"
         >
-            {/* <ContentEditable
+            <ContentEditable
                 html={value || "Text"}
                 onChange={handleContentChange}
                 className={cn(
@@ -70,7 +70,7 @@ export const Note = ({
                     color: fill ? getContrastingTextColor(fill) : "#fff",
                     fontSize: calculateFontSize(width, height),
                 }}
-            /> */}
+            />
         </foreignObject>
     );
 };

@@ -1,5 +1,5 @@
 import { Kalam } from "next/font/google";
-// import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 import { cn, colorToCss } from "@/lib/utils";
 import { TextLayer } from "@/types/canvas";
@@ -40,9 +40,9 @@ export const Text = ({
         liveLayers.get(id)?.set("value", newValue);
     }, []);
 
-    // const handleContentChange = (e: ContentEditableEvent) => {
-    //     updateValue(e.target.value);
-    // };
+    const handleContentChange = (e: ContentEditableEvent) => {
+        updateValue(e.target.value);
+    };
 
     return (
         <foreignObject
@@ -57,7 +57,7 @@ export const Text = ({
                     : "none",
             }}
         >
-            {/* <ContentEditable
+            <ContentEditable
                 html={value || "Text"}
                 onChange={handleContentChange}
                 className={cn(
@@ -68,7 +68,7 @@ export const Text = ({
                     color: fill ? colorToCss(fill) : "#000",
                     fontSize: calculateFontSize(width, height),
                 }}
-            /> */}
+            />
         </foreignObject>
     );
 };

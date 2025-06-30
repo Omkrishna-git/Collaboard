@@ -47,8 +47,8 @@ import { LiveObject } from "@liveblocks/client";
 import { LayerPreview } from "./layer-preview";
 import { SelectionBox } from "./selection-box";
 import { SelectionTools } from "./selection-tools";
-// import { Path } from "./path";
-// import { useDisableScrollBounce } from "@/hooks/use-disable-scroll-bounce";
+import { Path } from "./path";
+import { useDisableScrollBounce } from "@/hooks/use-disable-scroll-bounce";
 // import { ResetCamera } from "./reset-camera";
 
 import { toPng } from "html-to-image";
@@ -85,7 +85,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
         b: 255,
     });
 
-    // useDisableScrollBounce();
+    useDisableScrollBounce();
     const history = useHistory();
     const canUndo = useCanUndo();
     const canRedo = useCanRedo();
@@ -212,36 +212,36 @@ export const Canvas = ({ boardId }: CanvasProps) => {
         [canvasState.mode]
     );
 
-    // const insertPath = useMutation(
-    //     ({ storage, self, setMyPresence }) => {
-    //         const liveLayers = storage.get("layers");
-    //         const { pencilDraft } = self.presence;
+    const insertPath = useMutation(
+        ({ storage, self, setMyPresence }) => {
+            const liveLayers = storage.get("layers");
+            const { pencilDraft } = self.presence;
 
-    //         if (
-    //             pencilDraft == null ||
-    //             pencilDraft.length < 2 ||
-    //             liveLayers.size >= MAX_LAYERS
-    //         ) {
-    //             setMyPresence({ pencilDraft: null });
-    //             return;
-    //         }
+            if (
+                pencilDraft == null ||
+                pencilDraft.length < 2 ||
+                liveLayers.size >= MAX_LAYERS
+            ) {
+                setMyPresence({ pencilDraft: null });
+                return;
+            }
 
-    //         const id = nanoid();
-    //         liveLayers.set(
-    //             id,
-    //             new LiveObject(penPointsToPathLayer(pencilDraft, lastUsedColor))
-    //         );
+            const id = nanoid();
+            liveLayers.set(
+                id,
+                new LiveObject(penPointsToPathLayer(pencilDraft, lastUsedColor))
+            );
 
-    //         const liveLayerIds = storage.get("layerIds");
-    //         liveLayerIds.push(id);
+            const liveLayerIds = storage.get("layerIds");
+            liveLayerIds.push(id);
 
-    //         setMyPresence({ pencilDraft: null });
-    //         setCanvasState({
-    //             mode: CanvasMode.Pencil,
-    //         });
-    //     },
-    //     [lastUsedColor]
-    // );
+            setMyPresence({ pencilDraft: null });
+            setCanvasState({
+                mode: CanvasMode.Pencil,
+            });
+        },
+        [lastUsedColor]
+    );
 
     const startDrawing = useMutation(
         ({ setMyPresence }, point: Point, pressure: number) => {
@@ -365,7 +365,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                 setCanvasState({ mode: CanvasMode.None });
             } 
             else if (canvasState.mode === CanvasMode.Pencil) {
-                // insertPath();
+                insertPath();
             } 
             else if (canvasState.mode === CanvasMode.Inserting) {
                 insertLayer(canvasState.layerType, point);
@@ -384,7 +384,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
             history,
             insertLayer,
             unSelectLayers,
-            // insertPath,
+            insertPath,
         ]
     );
 

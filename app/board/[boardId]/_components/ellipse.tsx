@@ -14,7 +14,9 @@ export const Ellipse = ({
     onPointerDown,
     selectionColor,
 }: EllipseProps) => {
+
     const { x, y, width, height, fill } = layer;
+    
     return (
         <ellipse
             className="drop-shadow-md"

@@ -23,7 +23,11 @@ export const Room = ({
         // publicApiKey={"pk_dev_yWl_4OIjV4U3H2U8SxcIrF8CpeH8-tkVurBFo-j1gVX4o9bcE-ffEVyyuClEznZ_"}
         authEndpoint="/api/liveblocks-auth"
     >
-        <RoomProvider id= {roomId} initialPresence={{}}>
+        <RoomProvider id= {roomId}
+         initialPresence={{
+            cursor:null,
+          }}
+        >
             <ClientSideSuspense fallback={fallback}>
                 {() => children}
             </ClientSideSuspense>

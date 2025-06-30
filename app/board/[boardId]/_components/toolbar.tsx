@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { CanvasMode, CanvasState, LayerType } from "@/types/canvas";
 import { useEffect } from "react";
+// import { useSelf as liveblocksUseSelf } from "@liveblocks/react/suspense";
 export { useSelf } from "@liveblocks/react/suspense";
 
 
@@ -32,7 +33,7 @@ const Toolbar = ({
     canRedo,
 }: ToolbarProps) => {
 
-    const selection = useSelf((me) => me.presence.info);
+    const selection = useSelf((me) => me.presence.selection);
 
     useEffect(() => {
         const onKeyDown = (e: KeyboardEvent) => {
@@ -205,5 +206,6 @@ export function ToolbarSkeleton() {
 export default Toolbar;
 
 function useSelf(arg0: (me: any) => any) {
-    
+    // throw new Error("Function not implemented.");
 }
+

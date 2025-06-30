@@ -22,7 +22,7 @@ declare global {
 
     // The Storage tree for the room, for useMutation, useStorage, etc.
     Storage: {
-       layers: LiveMap<string, LiveObject<Layer>>;
+      layers: LiveMap<string, LiveObject<Layer>>;
       layerIds: LiveList<string>;
     };
 

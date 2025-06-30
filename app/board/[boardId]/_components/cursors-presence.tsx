@@ -6,7 +6,7 @@ import { useOthersConnectionIds, useOthersMapped } from "@liveblocks/react/suspe
 import { Cursor } from "./cursor";
 import { shallow } from "@liveblocks/client";
 // import { Path } from "./path";
-// import { colorToCss } from "@/lib/utils";
+import { colorToCss } from "@/lib/utils";
 
 const Cursors = () => {
     const ids = useOthersConnectionIds();

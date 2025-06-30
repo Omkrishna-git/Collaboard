@@ -7,6 +7,8 @@ import { useQuery } from "convex/react";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { ProModal } from "@/components/modals/pro-modal";
+import { useProModal } from "@/store/use-pro-model";
 
 interface NewBoardButtonProps {
     orgId: string;
@@ -17,6 +19,7 @@ const MAX_BOARDS_WITHIN_ORG = 100;
 
 export const NewBoardButton = ({ orgId, disabled }: NewBoardButtonProps) => {
     const router = useRouter();
+    const { onOpen } = useProModal(); 
     const { mutate, pending } = useApiMutation(api.board.create);
 
     const data = useQuery(api.board.getTotalBoardCountOfOrg, {
@@ -36,7 +39,10 @@ export const NewBoardButton = ({ orgId, disabled }: NewBoardButtonProps) => {
                 toast.success("Board created!");
                 router.push(`/board/${id}`);
             })
-            .catch(() => toast.error("Failed to create board"));
+            .catch(() => {
+                toast.error("Failed to create board")
+                onOpen();
+            });
     };
 
     return (

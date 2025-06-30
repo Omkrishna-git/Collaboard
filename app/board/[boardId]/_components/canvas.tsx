@@ -49,7 +49,7 @@ import { SelectionBox } from "./selection-box";
 import { SelectionTools } from "./selection-tools";
 import { Path } from "./path";
 import { useDisableScrollBounce } from "@/hooks/use-disable-scroll-bounce";
-// import { ResetCamera } from "./reset-camera";
+import { ResetCamera } from "./reset-camera";
 
 import { toPng } from "html-to-image";
 import { useQuery } from "convex/react";
@@ -593,9 +593,9 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                 redo={history.redo}
             />
         
-            {/* {camera.x != 0 && camera.y != 0 && (
+            {camera.x != 0 && camera.y != 0 && (
                 <ResetCamera resetCamera={resetCamera} />
-            )} */}
+            )}
 
             <SelectionTools
                 onDuplicate={duplicateLayers}
@@ -656,14 +656,14 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                             />
                         )}
                     <CursorsPresence />
-                    {/* {pencilDraft && pencilDraft.length > 0 && (
+                    {pencilDraft && pencilDraft.length > 0 && (
                         <Path
                             points={pencilDraft}
                             fill={colorToCss(lastUsedColor)}
                             x={0}
                             y={0}
                         />
-                    )} */}
+                    )}
                 </g>
             </svg> 
         </main>

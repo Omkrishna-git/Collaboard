@@ -37,6 +37,7 @@ export const LayerPreview = memo(
                         stroke={selectionColor}
                     />
                 );
+
             case LayerType.Note:
                 return (
                     <Note
@@ -46,6 +47,7 @@ export const LayerPreview = memo(
                         selectionColor={selectionColor}
                     />
                 );
+
             case LayerType.Text:
                 return (
                     <Text
@@ -55,6 +57,7 @@ export const LayerPreview = memo(
                         selectionColor={selectionColor}
                     />
                 );
+
             case LayerType.Ellipse:
                 return (   
                     <Ellipse
@@ -64,6 +67,7 @@ export const LayerPreview = memo(
                         selectionColor={selectionColor}
                     />
                 );
+                
             case LayerType.Rectangle:
                 return (
                     <Rectangle

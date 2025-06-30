@@ -5,7 +5,7 @@ import { memo } from "react";
 import { useOthersConnectionIds, useOthersMapped } from "@liveblocks/react/suspense";
 import { Cursor } from "./cursor";
 import { shallow } from "@liveblocks/client";
-// import { Path } from "./path";
+import { Path } from "./path";
 import { colorToCss } from "@/lib/utils";
 
 const Cursors = () => {
@@ -22,17 +22,17 @@ const Cursors = () => {
 };
 
 const Drafts = () => {
-    // const others = useOthersMapped(
-    //     (other) => ({
-    //         pencilDraft: other.presence.pencilDraft,
-    //         pencilColor: other.presence.penColor,
-    //     }),
-    //     shallow
-    // );
+    const others = useOthersMapped(
+        (other) => ({
+            pencilDraft: other.presence.pencilDraft,
+            pencilColor: other.presence.penColor,
+        }),
+        shallow
+    );
 
     return (
         <>
-            {/* {others.map(([key, other]) => {
+            {others.map(([key, other]) => {
                 if (other.pencilDraft) {
                     return (
                         <Path
@@ -49,7 +49,7 @@ const Drafts = () => {
                     );
                 }
                 return null;
-            })} */}
+            })}
         </>
     );
 };

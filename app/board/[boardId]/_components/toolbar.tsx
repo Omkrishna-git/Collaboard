@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { CanvasMode, CanvasState, LayerType } from "@/types/canvas";
 import { useEffect } from "react";
-// import { useSelf as liveblocksUseSelf } from "@liveblocks/react/suspense";
+import { useSelf as liveblocksUseSelf } from "@liveblocks/react/suspense";
 export { useSelf } from "@liveblocks/react/suspense";
 
 

@@ -169,6 +169,7 @@ export function penPointsToPathLayer(
     };
 }
 
+// get strok perfect free hand
 export function getSvgPathFromStroke(stroke: number[][]) {
     if (!stroke.length) return "";
 

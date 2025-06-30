@@ -49,7 +49,7 @@ import {
   } from "@/lib/utils";
 import { LiveObject } from "@liveblocks/client";
 import { LayerPreview } from "./layer-preview";
-// import { SelectionBox } from "./selection-box";
+import { SelectionBox } from "./selection-box";
 // import { SelectionTools } from "./selection-tools";
 // import { Path } from "./path";
 // import { useDisableScrollBounce } from "@/hooks/use-disable-scroll-bounce";
@@ -277,17 +277,17 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     //     [canvasState]
     // );
 
-    // const onResizeHandlePointerDown = useCallback(
-    //     (corner: Side, initialBounds: XYWH) => {
-    //         history.pause();
-    //         setCanvasState({
-    //             mode: CanvasMode.Resizing,
-    //             initialBounds,
-    //             corner,
-    //         });
-    //     },
-    //     [history]
-    // );
+    const onResizeHandlePointerDown = useCallback(
+        (corner: Side, initialBounds: XYWH) => {
+            history.pause();
+            setCanvasState({
+                mode: CanvasMode.Resizing,
+                initialBounds,
+                corner,
+            });
+        },
+        [history]
+    );
 
     const onWheel = useCallback((e: React.WheelEvent) => {
         setCamera((camera) => {
@@ -629,9 +629,9 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                         );
                     })}
 
-                    {/* <SelectionBox
+                    <SelectionBox
                         onResizeHandlePointerDown={onResizeHandlePointerDown}
-                    /> */}
+                    />
                     
                     {/* {canvasState.mode === CanvasMode.SelectionNet &&
                         canvasState.current && (

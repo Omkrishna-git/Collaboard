@@ -22,6 +22,7 @@ export const SelectionTools = memo(
     ({ camera, setLastUsedColor, onDuplicate, lastUsedColor }: SelectionToolsProps) => {
         const selection = useSelf((me) => me.presence.selection);
 
+        // move indecies from 0 to n-1
         const moveToFront = useMutation(
             ({ storage }) => {
                 const liveLayerIds = storage.get("layerIds");
@@ -44,6 +45,7 @@ export const SelectionTools = memo(
             [selection]
         );
 
+        // reverse the indecies from n-1 to 0
         const moveToBack = useMutation(
             ({ storage }) => {
                 const liveLayerIds = storage.get("layerIds");

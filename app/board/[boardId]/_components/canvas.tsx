@@ -34,10 +34,6 @@ import {
 
 export { useSelf } from "@liveblocks/react/suspense";
 
-// function Component() {
-//   const { name, picture } = useSelf((me) => me.info);
-// }
-
 import { CursorsPresence } from "./cursors-presence";
 import {
     colorToCss,
@@ -164,7 +160,11 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     }, []);
 
     const updateSelectionNet = useMutation(
-        ({ storage, setMyPresence }, current: Point, origin: Point) => {
+        (
+            { storage, setMyPresence },
+            current: Point, 
+            origin: Point
+        ) => {
             const layers = storage.get("layers").toImmutable();
             setCanvasState({ mode: CanvasMode.SelectionNet, origin, current });
 
@@ -181,13 +181,11 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     );
 
     const startMultiSelection = useCallback((current: Point, origin: Point) => {
-        if (
-            Math.abs(current.x - origin.x) + Math.abs(current.y - origin.y) >
-            SELECTION_NET_THRESHOLD
-        ) {
+        if (Math.abs(current.x - origin.x) + Math.abs(current.y - origin.y) > SELECTION_NET_THRESHOLD) {
             setCanvasState({ mode: CanvasMode.SelectionNet, origin, current });
         }
-    }, []);
+    }, 
+    []);
 
     const continueDrawing = useMutation(
         ({ setMyPresence, self }, point: Point, e: React.PointerEvent) => {
@@ -528,53 +526,53 @@ export const Canvas = ({ boardId }: CanvasProps) => {
         }
     };
 
-    // useEffect(() => {
-    //     function onKeyDown(e: KeyboardEvent) {
-    //         let offset: Point = { x: 0, y: 0 };
-    //         switch (e.key) {
-    //             case "d": {
-    //                 if (e.ctrlKey && canvasState.mode === CanvasMode.None) {
-    //                     duplicateLayers();
-    //                 }
-    //                 break;
-    //             }
-    //             case "z": {
-    //                 if (e.ctrlKey || e.metaKey) {
-    //                     if (e.shiftKey) {
-    //                         history.redo();
-    //                     } else {
-    //                         history.undo();
-    //                     }
-    //                     break;
-    //                 }
-    //             }
-    //             case "ArrowUp":
-    //                 offset = { x: 0, y: -MOVE_OFFSET };
-    //                 moveSelectedLayers(offset);
-    //                 break;
-    //             case "ArrowDown":
-    //                 offset = { x: 0, y: MOVE_OFFSET };
-    //                 moveSelectedLayers(offset);
-    //                 break;
-    //             case "ArrowLeft":
-    //                 offset = { x: -MOVE_OFFSET, y: 0 };
-    //                 moveSelectedLayers(offset);
-    //                 break;
-    //             case "ArrowRight":
-    //                 offset = { x: MOVE_OFFSET, y: 0 };
-    //                 moveSelectedLayers(offset);
-    //                 break;
-    //             default:
-    //                 break;
-    //         }
-    //     }
+    useEffect(() => {
+        function onKeyDown(e: KeyboardEvent) {
+            let offset: Point = { x: 0, y: 0 };
+            switch (e.key) {
+                case "d": {
+                    if (e.ctrlKey && canvasState.mode === CanvasMode.None) {
+                        duplicateLayers();
+                    }
+                    break;
+                }
+                case "z": {
+                    if (e.ctrlKey || e.metaKey) {
+                        if (e.shiftKey) {
+                            history.redo();
+                        } else {
+                            history.undo();
+                        }
+                        break;
+                    }
+                }
+                case "ArrowUp":
+                    offset = { x: 0, y: -MOVE_OFFSET };
+                    moveSelectedLayers(offset);
+                    break;
+                case "ArrowDown":
+                    offset = { x: 0, y: MOVE_OFFSET };
+                    moveSelectedLayers(offset);
+                    break;
+                case "ArrowLeft":
+                    offset = { x: -MOVE_OFFSET, y: 0 };
+                    moveSelectedLayers(offset);
+                    break;
+                case "ArrowRight":
+                    offset = { x: MOVE_OFFSET, y: 0 };
+                    moveSelectedLayers(offset);
+                    break;
+                default:
+                    break;
+            }
+        }
 
-    //     document.addEventListener("keydown", onKeyDown);
+        document.addEventListener("keydown", onKeyDown);
 
-    //     return () => {
-    //         document.removeEventListener("keydown", onKeyDown);
-    //     };
-    // }, [history]);
+        return () => {
+            document.removeEventListener("keydown", onKeyDown);
+        };
+    }, [history]);
 
     return (
         <main className="h-full w-full relative bg-neutral-100 touch-none">
@@ -637,7 +635,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                         onResizeHandlePointerDown={onResizeHandlePointerDown}
                     />
                     
-                    {/* {canvasState.mode === CanvasMode.SelectionNet &&
+                    {canvasState.mode === CanvasMode.SelectionNet &&
                         canvasState.current && (
                             <rect
                                 className="fill-blue-500/5 stroke-blue-500 stroke-1"
@@ -656,7 +654,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                                     canvasState.origin.y - canvasState.current.y
                                 )}
                             />
-                        )} */}
+                        )}
                     <CursorsPresence />
                     {/* {pencilDraft && pencilDraft.length > 0 && (
                         <Path

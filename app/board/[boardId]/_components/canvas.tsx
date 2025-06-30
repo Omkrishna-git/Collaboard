@@ -50,7 +50,7 @@ import {
 import { LiveObject } from "@liveblocks/client";
 import { LayerPreview } from "./layer-preview";
 import { SelectionBox } from "./selection-box";
-// import { SelectionTools } from "./selection-tools";
+import { SelectionTools } from "./selection-tools";
 // import { Path } from "./path";
 // import { useDisableScrollBounce } from "@/hooks/use-disable-scroll-bounce";
 // import { ResetCamera } from "./reset-camera";
@@ -436,63 +436,63 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     }, [selections]);
 
 
-    // const duplicateLayers = useMutation(({ storage, self, setMyPresence }) => {
-    //     const liveLayers = storage.get("layers");
-    //     const liveLayerIds = storage.get("layerIds");
-    //     const newLayerIds: string[] = [];
-    //     const layersIdsToCopy = self.presence.selection;
+    const duplicateLayers = useMutation(({ storage, self, setMyPresence }) => {
+        const liveLayers = storage.get("layers");
+        const liveLayerIds = storage.get("layerIds");
+        const newLayerIds: string[] = [];
+        const layersIdsToCopy = self.presence.selection;
 
-    //     if (liveLayerIds.length + layersIdsToCopy.length > MAX_LAYERS) {
-    //         return;
-    //     }
+        if (liveLayerIds.length + layersIdsToCopy.length > MAX_LAYERS) {
+            return;
+        }
 
-    //     if (layersIdsToCopy.length === 0) {
-    //         return;
-    //     }
+        if (layersIdsToCopy.length === 0) {
+            return;
+        }
 
-    //     layersIdsToCopy.forEach((layerId) => {
-    //         const newLayerId = nanoid();
-    //         const layer = liveLayers.get(layerId);
+        layersIdsToCopy.forEach((layerId) => {
+            const newLayerId = nanoid();
+            const layer = liveLayers.get(layerId);
 
-    //         if (layer) {
-    //             const newLayer = layer.clone();
-    //             newLayer.set("x", newLayer.get("x") + 10);
-    //             newLayer.set("y", newLayer.get("y") + 10);
+            if (layer) {
+                const newLayer = layer.clone();
+                newLayer.set("x", newLayer.get("x") + 10);
+                newLayer.set("y", newLayer.get("y") + 10);
 
-    //             liveLayerIds.push(newLayerId);
-    //             liveLayers.set(newLayerId, newLayer);
+                liveLayerIds.push(newLayerId);
+                liveLayers.set(newLayerId, newLayer);
 
-    //             newLayerIds.push(newLayerId);
-    //         }
-    //     });
+                newLayerIds.push(newLayerId);
+            }
+        });
 
-    //     setMyPresence({ selection: [...newLayerIds] }, { addToHistory: true });
-    //     setCanvasState({ mode: CanvasMode.None });
-    // }, []);
+        setMyPresence({ selection: [...newLayerIds] }, { addToHistory: true });
+        setCanvasState({ mode: CanvasMode.None });
+    }, []);
 
-    // const moveSelectedLayers = useMutation(
-    //     ({ storage, self, setMyPresence }, offset: Point) => {
-    //         const liveLayers = storage.get("layers");
-    //         const selection = self.presence.selection;
+    const moveSelectedLayers = useMutation(
+        ({ storage, self, setMyPresence }, offset: Point) => {
+            const liveLayers = storage.get("layers");
+            const selection = self.presence.selection;
 
-    //         if (selection.length === 0) {
-    //             return;
-    //         }
+            if (selection.length === 0) {
+                return;
+            }
 
-    //         for (const id of selection) {
-    //             const layer = liveLayers.get(id);
-    //             if (layer) {
-    //                 layer.update({
-    //                     x: layer.get("x") + offset.x,
-    //                     y: layer.get("y") + offset.y,
-    //                 });
-    //             }
-    //         }
+            for (const id of selection) {
+                const layer = liveLayers.get(id);
+                if (layer) {
+                    layer.update({
+                        x: layer.get("x") + offset.x,
+                        y: layer.get("y") + offset.y,
+                    });
+                }
+            }
 
-    //         setMyPresence({ selection }, { addToHistory: true });
-    //     },
-    //     [canvasState, history]
-    // );
+            setMyPresence({ selection }, { addToHistory: true });
+        },
+        [canvasState, history]
+    );
 
     const svgRef = useRef<SVGSVGElement | null>(null);
     const data = useQuery(api.board.get, { id: boardId as Id<"boards"> });
@@ -599,12 +599,12 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                 <ResetCamera resetCamera={resetCamera} />
             )} */}
 
-            {/* <SelectionTools
+            <SelectionTools
                 onDuplicate={duplicateLayers}
                 camera={camera}
                 setLastUsedColor={setLastUsedColor}
                 lastUsedColor={lastUsedColor}
-            /> */}
+            />
            
             <svg
                 ref={svgRef}

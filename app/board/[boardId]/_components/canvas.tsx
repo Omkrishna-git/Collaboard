@@ -55,7 +55,7 @@ import { SelectionBox } from "./selection-box";
 // import { useDisableScrollBounce } from "@/hooks/use-disable-scroll-bounce";
 // import { ResetCamera } from "./reset-camera";
 
-// import { toPng } from "html-to-image";
+import { toPng } from "html-to-image";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
@@ -343,10 +343,10 @@ export const Canvas = ({ boardId }: CanvasProps) => {
 
             const point = pointerEventToCanvasPoint(e, camera);
 
-            // if (canvasState.mode === CanvasMode.Pencil) {
-            //     startDrawing(point, e.pressure);
-            //     return;
-            // }
+            if (canvasState.mode === CanvasMode.Pencil) {
+                startDrawing(point, e.pressure);
+                return;
+            }
 
             setCanvasState({ mode: CanvasMode.Pressing, origin: point });
         },
@@ -354,7 +354,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
             camera, 
             canvasState.mode, 
             setCanvasState, 
-            // startDrawing
+            startDrawing
         ]
     );
 
@@ -497,36 +497,36 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     const svgRef = useRef<SVGSVGElement | null>(null);
     const data = useQuery(api.board.get, { id: boardId as Id<"boards"> });
 
-    // const exportAsPng = () => {
-    //     if (svgRef.current) {
-    //         const bbox = svgRef.current.getBBox();
-    //         const svgClone = svgRef.current.cloneNode(true) as SVGSVGElement;
+    const exportAsPng = () => {
+        if (svgRef.current) {
+            const bbox = svgRef.current.getBBox();
+            const svgClone = svgRef.current.cloneNode(true) as SVGSVGElement;
 
-    //         svgClone.setAttribute("width", bbox.width.toString());
-    //         svgClone.setAttribute("height", bbox.height.toString());
-    //         svgClone.setAttribute(
-    //             "viewBox",
-    //             `${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`
-    //         );
+            svgClone.setAttribute("width", bbox.width.toString());
+            svgClone.setAttribute("height", bbox.height.toString());
+            svgClone.setAttribute(
+                "viewBox",
+                `${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`
+            );
 
-    //         document.body.appendChild(svgClone);
+            document.body.appendChild(svgClone);
 
-    //         toPng(svgClone as unknown as HTMLElement)
-    //             .then((dataUrl) => {
-    //                 const link = document.createElement("a");
-    //                 link.href = dataUrl;
-    //                 link.download = `${data?.title || "download"}.png`;
-    //                 document.body.appendChild(link);
-    //                 link.click();
-    //                 document.body.removeChild(link);
-    //                 document.body.removeChild(svgClone);
-    //             })
-    //             .catch((error) => {
-    //                 console.error("Error exporting SVG to PNG", error);
-    //                 document.body.removeChild(svgClone);
-    //             });
-    //     }
-    // };
+            toPng(svgClone as unknown as HTMLElement)
+                .then((dataUrl) => {
+                    const link = document.createElement("a");
+                    link.href = dataUrl;
+                    link.download = `${data?.title || "download"}.png`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    document.body.removeChild(svgClone);
+                })
+                .catch((error) => {
+                    console.error("Error exporting SVG to PNG", error);
+                    document.body.removeChild(svgClone);
+                });
+        }
+    };
 
     // useEffect(() => {
     //     function onKeyDown(e: KeyboardEvent) {
@@ -581,7 +581,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
 
             <Info 
                 boardId={boardId} 
-                // exportAsPng={exportAsPng} 
+                exportAsPng={exportAsPng} 
             />
 
             <Participants />

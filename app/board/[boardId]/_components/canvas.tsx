@@ -386,14 +386,16 @@ export const Canvas = ({ boardId }: CanvasProps) => {
         ]
     );
 
-    // const selections = useOthersMapped((other) => other.presence.selection);
+    const selections = useOthersMapped((other) => other.presence.selection);
 
     const onLayerPointerDown = useMutation(
-        ({ self, setMyPresence }, e: React.PointerEvent, layerId: string) => {
-            if (
-                canvasState.mode === CanvasMode.Pencil ||
-                canvasState.mode === CanvasMode.Inserting
-            ) {
+        (
+            { self, setMyPresence }, 
+            e: React.PointerEvent, 
+            layerId: string
+        ) => {
+
+            if (canvasState.mode === CanvasMode.Pencil || canvasState.mode === CanvasMode.Inserting) {
                 return;
             }
 
@@ -408,20 +410,27 @@ export const Canvas = ({ boardId }: CanvasProps) => {
 
             setCanvasState({ mode: CanvasMode.Translating, current: point });
         },
-        [setCanvasState, history, camera, canvasState.mode]
+        [
+            setCanvasState, 
+            history, 
+            camera, 
+            canvasState.mode
+        ]
     );
 
-    // const layerIdsToColorSelection = useMemo(() => {
-    //     const layerIdsToColorSelection: Record<string, string> = {};
-    //     for (const user of selections) {
-    //         const [connectionId, selection] = user;
-    //         for (const layerId of selection) {
-    //             layerIdsToColorSelection[layerId] =
-    //                 connectionIdToColor(connectionId);
-    //         }
-    //     }
-    //     return layerIdsToColorSelection;
-    // }, [selections]);
+
+    const layerIdsToColorSelection = useMemo(() => {
+        const layerIdsToColorSelection: Record<string, string> = {};
+        for (const user of selections) {
+            const [connectionId, selection] = user;
+            for (const layerId of selection) {
+                layerIdsToColorSelection[layerId] =
+                    connectionIdToColor(connectionId);
+            }
+        }
+        return layerIdsToColorSelection;
+    }, [selections]);
+
 
     // const duplicateLayers = useMutation(({ storage, self, setMyPresence }) => {
     //     const liveLayers = storage.get("layers");
@@ -481,8 +490,8 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     //     [canvasState, history]
     // );
 
-    // const svgRef = useRef<SVGSVGElement | null>(null);
-    // const data = useQuery(api.board.get, { id: boardId as Id<"boards"> });
+    const svgRef = useRef<SVGSVGElement | null>(null);
+    const data = useQuery(api.board.get, { id: boardId as Id<"boards"> });
 
     // const exportAsPng = () => {
     //     if (svgRef.current) {
@@ -594,7 +603,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
             /> */}
            
             <svg
-                // ref={svgRef}
+                ref={svgRef}
                 className="h-[100vh] w-[100vw]"
                 onWheel={onWheel}
                 onPointerMove={onPointerMove}
@@ -613,9 +622,9 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                                 key={layerId}
                                 id={layerId}
                                 onLayerPointerDown={onLayerPointerDown}
-                                // selectionColor={ 
-                                    // layerIdsToColorSelection[layerId]
-                                // }
+                                selectionColor={ 
+                                    layerIdsToColorSelection[layerId]
+                                }
                             />
                         );
                     })}

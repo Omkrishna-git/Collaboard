@@ -53,7 +53,7 @@ const CustomColorPicker = forwardRef<
                     >
                         <Image
                             className="rounded-full"
-                            src="/color-picker.png"
+                            src="/color-picker2.png"
                             alt="Empty"
                             height={40}
                             width={40}

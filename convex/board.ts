@@ -1,7 +1,7 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
-const ORG_BOARD_LIMIT = 3;
+const ORG_BOARD_LIMIT = 5;
 
 const images = [
     "/placeholders/1.svg",
